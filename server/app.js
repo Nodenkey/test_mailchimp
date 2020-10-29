@@ -1,25 +1,23 @@
 const express = require('express');
 const request = require('request');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 
 
 const app = express(); 
 
+app.use(cors());
+
 //body parser middleware
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.json());
 
 // Signup route
 app.post('/signup', (req, res) => {
-    const {firstName, lastName, email} = req.body;
-    if(!firstName || !lastName || !email){
-        // res.sendStatus(404)
-    } else{
-        
-        // res.send("<h2>sent response</h2>")
-        res.json({firstName, lastName, email});
-        res.sendStatus(200);
-    }
+    console.log(req.body);
+    // console.log(firstName);
+   res.send(req.body);
 });
 
 const PORT = process.env.PORT || 5000;

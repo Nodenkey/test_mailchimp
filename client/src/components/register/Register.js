@@ -10,7 +10,8 @@ const Register = () => {
    
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/signup", userDetails);
+        console.log('user details', userDetails);
+        axios.post("http://localhost:5000/signup", JSON.stringify(userDetails));
     };
     
     const onChange = (e) => {
