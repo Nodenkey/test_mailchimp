@@ -8,10 +8,16 @@ const Register = () => {
        email: '',
    });
    
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('user details', userDetails);
-        axios.post("http://localhost:5000/signup", JSON.stringify(userDetails));
+        try {
+            const res = await axios.post("http://localhost:5000/signup", {userDetails})
+            console.log(res);
+        }
+        catch (e) {
+            console.log(e);
+        }
     };
     
     const onChange = (e) => {

@@ -15,8 +15,8 @@ app.use(express.json());
 
 // Signup route
 app.post('/signup', (req, res) => {
-    const {firstName, lastName, email} = req.body;
-    console.log(req.body);
+    const {firstName, lastName, email} = req.body.userDetails;
+    console.log(email);
 
     const dc = 'us2';
     const api_key = '58dd83d33f7108aa7269ca717a9cc706-us2';
@@ -30,11 +30,11 @@ app.post('/signup', (req, res) => {
             status: 'subscribed',
             merge_fields: {
                 FNAME: firstName,
-                LNAME: lastName,
+                LNAME: lastName
             }
         }
         ]
-    }
+    };
 
     const postData = JSON.stringify(data);
     
@@ -49,13 +49,18 @@ app.post('/signup', (req, res) => {
 
     request(options, (err, response, body) => {
         if(err){
-            res.sendStatus(400).send('Something went wrong');
+            // res.sendStatus(400).send('Something went wrong');
+            res.send('err');
         }
-        else if (response.statusCode === 200) {
-            res.sendStatus(200)
-        }
-        else{
-            res.sendStatus(400).send('Something went wrong');
+        else { 
+            if (response.statusCode === 200) {
+                console.log('@@@@@@@@@', response.statusCode);
+                res.send('ok');
+            }
+            else{
+                console.log('@@@@@@@@@', response.statusCode)
+                res.send('err2');
+            }
         }
     });
 });
